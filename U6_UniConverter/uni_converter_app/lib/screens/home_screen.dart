@@ -24,6 +24,11 @@ class HomeState extends State<HomeScreen> {
     double valueConverter = double.parse(_valueConverter.text);
     setState(() {
        _onzaFuerzaValue = (valueConverter * 3.59694).toString();
+       _gramoFuerzaValue = (valueConverter * 101.97162).toString();
+       _kilonewtonValue = (valueConverter * 0.001).toString();
+       _libraFuerzaValue = (valueConverter * 0.2249).toString();
+       _kilogramoFuerzaValue = (valueConverter * 0.102).toString();
+       _dinaValue = (valueConverter * 100000).toString();
     });    
   }
 
@@ -65,7 +70,7 @@ class HomeState extends State<HomeScreen> {
               Column(
                 children: [
                   ListTile(
-                     title: const Text("Dina"),
+                    title: const Text("Dina"),
                     subtitle: const Text('1.00E-5N'),
                     leading: const Text("dyn", style: TextStyle(backgroundColor: Colors.lightBlueAccent)),
                     trailing: Text(_dinaValue)
