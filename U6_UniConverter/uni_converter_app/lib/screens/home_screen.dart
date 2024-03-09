@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:uni_converter_app/widgets/type_converter_widget.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
-  final TextEditingController _valueConverter = TextEditingController();
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+  
+  @override
+  State<StatefulWidget> createState() {
+    return HomeState();
+  }
+  
+}
+
+class HomeState extends State<HomeScreen> {
+   final TextEditingController _valueConverter = TextEditingController();
   String _onzaFuerzaValue = "0.0";
 
   _converterUnits() {    
     double valueConverter = double.parse(_valueConverter.text);
-    _onzaFuerzaValue = (valueConverter * 3.59694).toString();
+    setState(() {
+       _onzaFuerzaValue = (valueConverter * 3.59694).toString();
+    });    
   }
 
   @override
