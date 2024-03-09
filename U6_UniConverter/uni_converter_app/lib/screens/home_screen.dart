@@ -14,6 +14,11 @@ class HomeScreen extends StatefulWidget {
 class HomeState extends State<HomeScreen> {
    final TextEditingController _valueConverter = TextEditingController();
   String _onzaFuerzaValue = "0.0";
+  String _gramoFuerza = "0.0";
+  String _kilonewton = "0.0";
+  String _libraFuerza = "0.0";
+  String _kilogramoFuerza = "0.0";
+  String _dina = "0.0";
 
   _converterUnits() {    
     double valueConverter = double.parse(_valueConverter.text);
@@ -56,12 +61,46 @@ class HomeState extends State<HomeScreen> {
               const SizedBox(height: 16),
               const Text("Resultado",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-              const SizedBox(height: 8),
-              ListTile(
-                title: const Text("Onza Fuerza"),
-                subtitle: const Text('0.28 N'),
-                leading: const Text("ozf"),
-                trailing: Text(_onzaFuerzaValue)
+              const SizedBox(height: 8),              
+              Column(
+                children: [
+                  ListTile(
+                     title: const Text("Dina"),
+                    subtitle: const Text('1.00E-5N'),
+                    leading: const Text("dyn", style: TextStyle(backgroundColor: Colors.lightBlueAccent)),
+                    trailing: Text(_dina)
+                  ),
+                   ListTile(
+                     title: const Text("Kilogramo Fuerza"),
+                    subtitle: const Text('9.81 N'),
+                    leading: const Text("kgf", style: TextStyle(backgroundColor: Colors.lightBlueAccent)),
+                    trailing: Text(_kilogramoFuerza)
+                  ),
+                   ListTile(
+                     title: const Text("Libra Fuerza"),
+                    subtitle: const Text('4.45 N'),
+                    leading: const Text("lbf", style: TextStyle(backgroundColor: Colors.lightBlueAccent)),
+                    trailing: Text(_libraFuerza)
+                  ),
+                   ListTile(
+                     title: const Text("Kilonewton"),
+                    subtitle: const Text('1,000 N'),
+                    leading: const Text("kN", style: TextStyle(backgroundColor: Colors.lightBlueAccent)),
+                    trailing: Text(_kilonewton)
+                  ),
+                   ListTile(
+                     title: const Text("Gramo Fuerza"),
+                    subtitle: const Text('0.01 N'),
+                    leading: const Text("gf", style: TextStyle(backgroundColor: Colors.lightBlueAccent)),
+                    trailing: Text(_gramoFuerza)
+                  ),
+                  ListTile(
+                    title: const Text("Onza Fuerza"),
+                    subtitle: const Text('0.28 N'),
+                    leading: const Text("ozf", style: TextStyle(backgroundColor: Colors.lightBlueAccent)),
+                    trailing: Text(_onzaFuerzaValue)
+                  ),                
+                ],
               )
             ]),
           ),
