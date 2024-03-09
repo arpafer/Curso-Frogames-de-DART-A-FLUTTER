@@ -4,8 +4,11 @@ import 'package:uni_converter_app/widgets/type_converter_widget.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final TextEditingController _valueConverter = TextEditingController();
-  _converterUnits() {
-    print("Valor recogido: ${_valueConverter.text}");
+  String _onzaFuerzaValue = "0.0";
+
+  _converterUnits() {    
+    double valueConverter = double.parse(_valueConverter.text);
+    _onzaFuerzaValue = (valueConverter * 3.59694).toString();
   }
 
   @override
@@ -38,7 +41,17 @@ class HomeScreen extends StatelessWidget {
                   controller: _valueConverter,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
-                      border: OutlineInputBorder(), label: Text("Newtons")))
+                      border: OutlineInputBorder(), label: Text("Newtons"))),
+              const SizedBox(height: 16),
+              const Text("Resultado",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+              const SizedBox(height: 8),
+              ListTile(
+                title: const Text("Onza Fuerza"),
+                subtitle: const Text('0.28 N'),
+                leading: const Text("ozf"),
+                trailing: Text(_onzaFuerzaValue)
+              )
             ]),
           ),
         ),
