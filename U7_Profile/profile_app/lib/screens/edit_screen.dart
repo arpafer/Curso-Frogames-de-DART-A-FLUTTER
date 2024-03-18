@@ -33,9 +33,14 @@ class _ContentState extends State<_Content> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController latitudController = TextEditingController();
   final TextEditingController longitudController = TextEditingController();
-
   File? galleryFile = null;
-
+  final FocusNode nameFocusNode = FocusNode();
+  final FocusNode emailFocusNode = FocusNode();
+  final FocusNode webSiteFocusNode = FocusNode();
+  final FocusNode phoneFocusNode = FocusNode();
+  final FocusNode latitudFocusNode = FocusNode();
+  final FocusNode longitudFocusNode = FocusNode();
+  
   @override
   Widget build(BuildContext context) {
     return Padding(padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
@@ -63,50 +68,84 @@ class _ContentState extends State<_Content> {
             TextField(
               controller: nameController,
               keyboardType: TextInputType.text,
+              focusNode: nameFocusNode,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Name"
-              )
+              ),
+              onSubmitted: (value) {
+                nameFocusNode.unfocus();
+                FocusScope.of(context).requestFocus(emailFocusNode);
+              },
             ),
+            const SizedBox(height: 12),
             TextField(
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
+              focusNode: emailFocusNode,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Email"
-              )
+              ),
+              onSubmitted: (value) {
+                emailFocusNode.unfocus();
+                FocusScope.of(context).requestFocus(webSiteFocusNode);
+              },
             ),
+            const SizedBox(height: 12),
             TextField(
               controller: webSiteController,
               keyboardType: TextInputType.url,
+              focusNode: webSiteFocusNode,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "WebSite"
-              )
+              ),
+              onSubmitted: (_) {
+                webSiteFocusNode.unfocus();
+                FocusScope.of(context).requestFocus(phoneFocusNode);
+              },
             ),
+            const SizedBox(height: 12),
             TextField(
               controller: phoneController,
               keyboardType: TextInputType.phone,
+              focusNode: phoneFocusNode,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Phone"
-              )
+              ),
+              onSubmitted: (_) {
+                phoneFocusNode.unfocus();
+                FocusScope.of(context).requestFocus(latitudFocusNode);
+              },
             ),
+            const SizedBox(height: 12),
             TextField(
               controller: latitudController,
               keyboardType: TextInputType.number,
+              focusNode: latitudFocusNode,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Latitud"
-              )
+              ),
+              onSubmitted: (_) {
+                latitudFocusNode.unfocus();
+                FocusScope.of(context).requestFocus(longitudFocusNode);
+              },
             ),
+            const SizedBox(height: 12),
             TextField(
               controller: longitudController,
               keyboardType: TextInputType.number,
+              focusNode: longitudFocusNode,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Longitud"
-              )
+              ),
+              onSubmitted: (_) {
+                longitudFocusNode.unfocus();                
+              },
             )
           ],
         )
