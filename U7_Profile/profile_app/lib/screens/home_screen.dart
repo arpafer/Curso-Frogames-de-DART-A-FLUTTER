@@ -1,12 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:profile_app/utils/constants.dart';
+import 'package:profile_app/widgets/item_data.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   _showMenu(BuildContext context) {
     // obtener el renderbox del overlay(superposición) en el cohntexto actual
-    RenderBox overlay =
+    final RenderBox overlay =
         Overlay.of(context).context.findRenderObject() as RenderBox;
 
      showMenu(
@@ -20,7 +23,8 @@ class HomeScreen extends StatelessWidget {
               Offset.zero & overlay.size),
           items: [
             const PopupMenuItem(
-                value: 1, child: Text("Editar datos del usuario")),
+                value: 1, 
+                child: Text("Editar datos del usuario")),
             const PopupMenuItem(
               value: 2,
               child: Text("Mostrando mensaje"),
@@ -45,8 +49,44 @@ class HomeScreen extends StatelessWidget {
         title: const Text("Profile"),
         centerTitle: true,
         leading: IconButton(
-            onPressed: _showMenu(context), icon: const Icon(Icons.menu)),
+            onPressed: () => _showMenu(context), icon: const Icon(Icons.menu)),
       ),
+      body: _Content(),
     );
   }
+}
+
+class _Content extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _ContentState();
+  
+}
+
+class _ContentState extends State<_Content> {
+  
+  final String nameState = "Antonio P.";
+  final String emailState = "antonio.antoniopf@gmail.com";
+  final String websiteState = "www.google.com";
+  final String phoneState = "45256464646";
+  final double latitudeState = -69.55;
+  final double longitudState = 7.36;
+  final File? galleryFile = null;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+           ClipOval(child: Center(
+            child: Image.asset("assets/icons/usuario.png", width: 200, height: 200, fit: BoxFit.fill)
+           )),
+           const ItemData(category: "Name", value: "Antonio P.")
+        ])
+    );
+  }
+  
 }
