@@ -68,7 +68,7 @@ class _ContentState extends State<_Content> {
   final String emailState = "antonio.antoniopf@gmail.com";
   final String websiteState = "www.google.com";
   final String phoneState = "45256464646";
-  final double latitudeState = -69.55;
+  final double latitudState = -69.55;
   final double longitudState = 7.36;
   final File? galleryFile = null;
 
@@ -82,9 +82,25 @@ class _ContentState extends State<_Content> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
            ClipOval(child: Center(
-            child: Image.asset("assets/icons/usuario.png", width: 200, height: 200, fit: BoxFit.fill)
+            child: galleryFile == null? 
+              Image.asset("assets/icons/usuario.png", width: 200, height: 200, fit: BoxFit.fill):
+              Image.file(galleryFile!, width: 200, height: 200, fit: BoxFit.fill)
            )),
-           const ItemData(category: "Name", value: "Antonio P.")
+            InkWell(
+              onTap: () => print(nameState),
+              child: ItemData(category: "Nombre", value: nameState)),
+               InkWell(
+              onTap: () => print(emailState),
+              child: ItemData(category: "Correo electrónico", value: emailState)),
+               InkWell(
+              onTap: () => print(websiteState),
+              child: ItemData(category: "Sitio web", value: websiteState)),
+               InkWell(
+              onTap: () => print(phoneState),
+              child: ItemData(category: "Teléfono", value: phoneState)),
+               InkWell(
+              onTap: () => print("$latitudState, $longitudState"),
+              child: ItemData(category: "Ubicación", value: "$latitudState, $longitudState")),
         ])
     );
   }
