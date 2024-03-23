@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:profile_app/preferences/user_preferences.dart';
 import 'package:profile_app/screens/screens.dart';
 import 'package:profile_app/utils/constants.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await UserPreferences.init();
   runApp(const MyApp());
 }
 

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:profile_app/preferences/user_preferences.dart';
 import 'package:profile_app/utils/constants.dart';
 import 'package:profile_app/widgets/item_data.dart';
 
@@ -27,7 +28,11 @@ class HomeScreen extends StatelessWidget {
                 child: Text("Editar datos del usuario")),
             const PopupMenuItem(
               value: 2,
-              child: Text("Mostrando mensaje"),
+              child: Text("Mostrando mensaje"),            
+            ),
+            const PopupMenuItem(
+              value: 3,
+              child: Text("Eliminar datos del usuario")
             )
           ]).then((value) => {
             // Manejar la opción seleccionado después de cerrar el menú
@@ -35,9 +40,13 @@ class HomeScreen extends StatelessWidget {
               {
                 // navegar a la pantalla de edición
                 Navigator.pushNamed(context, editScreen)
+              } else if (value == 2) {
+                 print("Mostrando mensaje")
               }
             else
-              {print("Mostrando mensaje")}
+              {
+                UserPreferences.removeValues()                
+              }
           });
     
   }
@@ -64,16 +73,16 @@ class _Content extends StatefulWidget {
 
 class _ContentState extends State<_Content> {
   
-  final String nameState = "Antonio P.";
-  final String emailState = "antonio.antoniopf@gmail.com";
-  final String websiteState = "www.google.com";
-  final String phoneState = "45256464646";
-  final double latitudState = -69.55;
-  final double longitudState = 7.36;
-  final File? galleryFile = null;
+  final String nameState = UserPreferences.name;
+  final String emailState = UserPreferences.email;
+  final String websiteState = UserPreferences.website;
+  final String phoneState = UserPreferences.phone;
+  final double latitudState = UserPreferences.latitude;
+  final double longitudState = UserPreferences.longitude;  
+  final File? galleryFile = File(UserPreferences.photoPath);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
     return SizedBox(
       width: double.infinity,
       height: double.infinity,
@@ -82,7 +91,7 @@ class _ContentState extends State<_Content> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
            ClipOval(child: Center(
-            child: galleryFile == null? 
+            child: galleryFile == null  ? 
               Image.asset("assets/icons/usuario.png", width: 200, height: 200, fit: BoxFit.fill):
               Image.file(galleryFile!, width: 200, height: 200, fit: BoxFit.fill)
            )),
