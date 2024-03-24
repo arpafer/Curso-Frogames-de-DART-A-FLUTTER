@@ -30,13 +30,19 @@ class _Content extends StatefulWidget {
 }
 
 class _ContentState extends State<_Content> {
-  final TextEditingController nameController = TextEditingController(text: UserPreferences.name);
-  final TextEditingController emailController = TextEditingController(text: UserPreferences.email);
-  final TextEditingController webSiteController = TextEditingController(text: UserPreferences.website);
-  final TextEditingController phoneController = TextEditingController(text: UserPreferences.phone);
-  final TextEditingController latitudController = TextEditingController(text: UserPreferences.latitude.toString());
-  final TextEditingController longitudController = TextEditingController(text: UserPreferences.longitude.toString());
-  File ?galleryFile = File(UserPreferences.photoPath);
+  final TextEditingController nameController =
+      TextEditingController(text: UserPreferences.name);
+  final TextEditingController emailController =
+      TextEditingController(text: UserPreferences.email);
+  final TextEditingController webSiteController =
+      TextEditingController(text: UserPreferences.website);
+  final TextEditingController phoneController =
+      TextEditingController(text: UserPreferences.phone);
+  final TextEditingController latitudController =
+      TextEditingController(text: UserPreferences.latitude.toString());
+  final TextEditingController longitudController =
+      TextEditingController(text: UserPreferences.longitude.toString());
+  dynamic galleryFile = UserPreferences.photoPath;
   final FocusNode nameFocusNode = FocusNode();
   final FocusNode emailFocusNode = FocusNode();
   final FocusNode webSiteFocusNode = FocusNode();
@@ -44,20 +50,19 @@ class _ContentState extends State<_Content> {
   final FocusNode latitudFocusNode = FocusNode();
   final FocusNode longitudFocusNode = FocusNode();
 
-   _collectData(BuildContext context) {
+  _collectData(BuildContext context) {
     if (nameController.text.isNotEmpty ||
         emailController.text.isNotEmpty ||
         webSiteController.text.isNotEmpty ||
         phoneController.text.isNotEmpty ||
         latitudController.text.isNotEmpty ||
         longitudController.text.isNotEmpty) {
-            
       UserPreferences.set(
           nameController.text,
           emailController.text,
           webSiteController.text,
           phoneController.text,
-          (galleryFile != null)? galleryFile!.path: '',
+          (galleryFile != null) ? galleryFile!.path : '',
           double.tryParse(latitudController.text) ?? 0.0,
           double.tryParse(longitudController.text) ?? 0.0);
 
@@ -99,10 +104,10 @@ class _ContentState extends State<_Content> {
             Stack(children: [
               ClipOval(
                   child: Center(
-                      child: galleryFile == null
-                          ? Image.asset("assets/icons/usuario.png",
+                      child: galleryFile is String
+                          ? Image.asset(galleryFile,
                               width: 200, height: 200, fit: BoxFit.fill)
-                          : Image.file(galleryFile!,
+                          : Image.file(galleryFile,
                               width: 200, height: 200, fit: BoxFit.fill))),
               Positioned(
                   right: 0,
@@ -116,21 +121,36 @@ class _ContentState extends State<_Content> {
               controller: nameController,
               keyboardType: TextInputType.text,
               focusNode: nameFocusNode,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: "Name"),
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: "Name",
+                  suffixIcon: nameController.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            nameController.clear();
+                          },
+                          icon: const Icon(Icons.clear))
+                      : null),
               onSubmitted: (value) {
                 nameFocusNode.unfocus();
                 FocusScope.of(context).requestFocus(emailFocusNode);
               },
-              
             ),
             const SizedBox(height: 12),
             TextField(
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               focusNode: emailFocusNode,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: "Email"),
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: "Email",
+                  suffixIcon: emailController.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            emailController.clear();
+                          },
+                          icon: const Icon(Icons.clear))
+                      : null),
               onSubmitted: (value) {
                 emailFocusNode.unfocus();
                 FocusScope.of(context).requestFocus(webSiteFocusNode);
@@ -141,8 +161,16 @@ class _ContentState extends State<_Content> {
               controller: webSiteController,
               keyboardType: TextInputType.url,
               focusNode: webSiteFocusNode,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: "WebSite"),
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: "WebSite",
+                  suffixIcon: webSiteController.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            webSiteController.clear();
+                          },
+                          icon: const Icon(Icons.clear))
+                      : null),
               onSubmitted: (_) {
                 webSiteFocusNode.unfocus();
                 FocusScope.of(context).requestFocus(phoneFocusNode);
@@ -153,8 +181,16 @@ class _ContentState extends State<_Content> {
               controller: phoneController,
               keyboardType: TextInputType.phone,
               focusNode: phoneFocusNode,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: "Phone"),
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: "Phone",
+                  suffixIcon: phoneController.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            phoneController.clear();
+                          },
+                          icon: const Icon(Icons.clear))
+                      : null),
               onSubmitted: (_) {
                 phoneFocusNode.unfocus();
                 FocusScope.of(context).requestFocus(latitudFocusNode);
@@ -165,8 +201,16 @@ class _ContentState extends State<_Content> {
               controller: latitudController,
               keyboardType: TextInputType.number,
               focusNode: latitudFocusNode,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: "Latitud"),
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: "Latitud",
+                  suffixIcon: latitudController.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            latitudController.clear();
+                          },
+                          icon: const Icon(Icons.clear))
+                      : null),
               onSubmitted: (_) {
                 latitudFocusNode.unfocus();
                 FocusScope.of(context).requestFocus(longitudFocusNode);
@@ -177,8 +221,16 @@ class _ContentState extends State<_Content> {
               controller: longitudController,
               keyboardType: TextInputType.number,
               focusNode: longitudFocusNode,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: "Longitud"),
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: "Longitud",
+                  suffixIcon: longitudController.text.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            longitudController.clear();
+                          },
+                          icon: const Icon(Icons.clear))
+                      : null),
               onSubmitted: (_) {
                 longitudFocusNode.unfocus();
               },

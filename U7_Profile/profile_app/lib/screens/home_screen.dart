@@ -79,7 +79,7 @@ class _ContentState extends State<_Content> {
   final String phoneState = UserPreferences.phone;
   final double latitudState = UserPreferences.latitude;
   final double longitudState = UserPreferences.longitude;  
-  final File? galleryFile = File(UserPreferences.photoPath);
+  final dynamic galleryFile = UserPreferences.photoPath;
 
   @override
   Widget build(BuildContext context) {    
@@ -91,9 +91,9 @@ class _ContentState extends State<_Content> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
            ClipOval(child: Center(
-            child: galleryFile == null  ? 
-              Image.asset("assets/icons/usuario.png", width: 200, height: 200, fit: BoxFit.fill):
-              Image.file(galleryFile!, width: 200, height: 200, fit: BoxFit.fill)
+            child: galleryFile is String? 
+              Image.asset(galleryFile, width: 200, height: 200, fit: BoxFit.fill):
+              Image.file(galleryFile, width: 200, height: 200, fit: BoxFit.fill)
            )),
             InkWell(
               onTap: () => print(nameState),
